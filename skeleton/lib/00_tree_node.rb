@@ -10,9 +10,9 @@ class PolyTreeNode
     @children = []
   end
 
-  def parent=(parent_node)
+  def parent=(node)
       old_parent = self.parent
-      new_parent = parent_node
+      new_parent = node
 
       if new_parent.nil?
         old_parent.children.delete(self)
@@ -24,4 +24,10 @@ class PolyTreeNode
       @parent = new_parent
   end
 
+  def add_child(node)
+    unless self.children.include?(node)
+      self.children << node
+      node.parent = self
+    end
+  end
 end

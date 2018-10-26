@@ -25,21 +25,23 @@ class KnightPathFinder
     @root_node
   end
 
-  # def bfs(target)
-  #   queue = [self]
-  #   until queue.empty?
-  #     node = queue.first
-  #
-  #     return node if node.value == target
-  #     node.children.each do |child|
-  #       queue << child
-  #     end
-  #
-  #     queue.shift
-  #   end
-  #   nil
-  # end
+  def find_path(end_pos)
+    node = @root_node.bfs(end_pos)
+    self.trace_path_back(node)
+  end
 
+  def trace_path_back(node)
+    path = []
+    start_pos = @root_node.value
+
+    until node.value == start_pos
+      path << node.value
+      node = node.parent
+    end
+
+    path << start_pos
+    return path.reverse
+  end
 
   def new_move_positions(pos)
     new_moves = KnightPathFinder.valid_moves(pos).reject {|move| @visited_positions.include?(move)}
@@ -58,13 +60,6 @@ class KnightPathFinder
     end
     moves.select {|move| move.valid_move?}
   end
-
-  # def valid_move?(pos)
-  #   x , y = pos
-  #   return false if x < 0 || x > 7 || y < 0 || y > 7
-  #   true
-  # end
-
 end
 
 class Array

@@ -30,4 +30,9 @@ class PolyTreeNode
       node.parent = self
     end
   end
+
+  def remove_child(node)
+    self.children.delete(node)
+    node.parent = nil
+  end
 end

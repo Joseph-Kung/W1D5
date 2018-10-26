@@ -3,6 +3,8 @@ require_relative "./lib/00_tree_node.rb"
 class KnightPathFinder
   SHIFTS = [[-2,-1], [-1,-2], [1,-2], [2,-1], [-2,1], [-1,2], [1,2], [2,1]]
 
+  attr_reader :root_node, :visited_positions
+
   def initialize(pos)
     @root_node = PolyTreeNode.new(pos)
     @visited_positions = [pos]
@@ -10,8 +12,34 @@ class KnightPathFinder
   end
 
   def build_move_tree
-
+    queue = [@root_node]
+    until queue.empty?
+      node = queue.first
+      positions = new_move_positions(node.value)
+      positions.each do |position|
+        node.add_child(PolyTreeNode.new(position))
+      end
+      queue += node.children
+      queue.shift
+    end
+    @root_node
   end
+
+  # def bfs(target)
+  #   queue = [self]
+  #   until queue.empty?
+  #     node = queue.first
+  #
+  #     return node if node.value == target
+  #     node.children.each do |child|
+  #       queue << child
+  #     end
+  #
+  #     queue.shift
+  #   end
+  #   nil
+  # end
+
 
   def new_move_positions(pos)
     new_moves = KnightPathFinder.valid_moves(pos).reject {|move| @visited_positions.include?(move)}

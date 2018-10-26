@@ -56,7 +56,7 @@ class PolyTreeNode
       node.children.each do |child|
         queue << child
       end
-      
+
       queue.shift
     end
     nil
@@ -64,7 +64,7 @@ class PolyTreeNode
 
 
   def inspect
-    "#{self.value}, #{self.children}"
+    "{#{self.value}, #{self.children}}"
   end
 
 end

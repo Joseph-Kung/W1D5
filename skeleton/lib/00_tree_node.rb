@@ -64,7 +64,8 @@ class PolyTreeNode
 
 
   def inspect
-    "{#{self.value}, #{self.children}}"
+    "{#{self.value}}" #position only
+    # "{#{self.value}, #{self.children}}" #position and children
   end
 
 end
